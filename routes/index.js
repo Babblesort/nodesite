@@ -13,6 +13,14 @@ router.get('/userlist', function(req, res) {
 	});
 });
 
+router.get('/userdetail', function(req, res) {
+	var db = req.db;
+	var collection = db.get('usercollection');
+	collection.find({"username": "alice"},{}, function(e, docs) {
+		res.render('userdetail', {"user": docs});
+	});
+});
+
 router.get('/newuser', function(req, res) {
 	res.render('newuser', { title: 'Add New User'});
 });
