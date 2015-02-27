@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p This is index.jade view.
+	h3= title
+	p
+	ul
+		li: a(href="/userlist") User List
+		li: a(href="/newuser") Add New User
+

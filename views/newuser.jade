@@ -1,9 +1,11 @@
 extends layout
 
 block content
-	h1= title
+	a(href="/userlist") User List
+
+	h3= title
 	form#formAddUser(name="adduser", method="post", action="/newuser")
 		input#inputUserName(type="text", placeholder="username", name="username")
 		input#inputUserEmail(type="text", placeholder="email", name="useremail")
 		button#buttonSubmit(type="submit") Submit
-	
+	p
