@@ -1,53 +1,55 @@
-var express = require('express');
-var router = express.Router();
+exports.index = function(req, res, next) {
+	res.render('index');
+};
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Choices' });
-});
-
-router.get('/userlist', function(req, res) {
+exports.userList = function(req, res, next) {
 	var db = req.db;
 	var collection = db.get('usercollection');
 	collection.find({},{}, function(e, docs) {
 		res.render('userlist', {"userlist": docs});
 	});
-});
+};
 
-router.get('/userdetail', function(req, res) {
+exports.userDetails = function(req, res, next) {
 	var db = req.db;
 	var collection = db.get('usercollection');
-	collection.find({"username": "alice"},{}, function(e, docs) {
+	collection.findOne({"_id": req.params.id},{}, function(e, docs) {
 		res.render('userdetail', {"user": docs});
 	});
-});
+};
 
-router.get('/newuser', function(req, res) {
-	res.render('newuser', { title: 'Add New User'});
-});
+exports.newUser = function(req, res, next) {
+	res.render('newuser');
+};
 
-router.post('/newuser', function(req, res) {
-
+exports.newUserPost = function(req, res, next) {
 	var name = req.body.username;
 	var email = req.body.useremail;
 
-	console.log("New user name: " + name);
-	console.log("New user email: " + email);
+	var db = req.db;
+	var collection = db.get('usercollection');
+
+	collection.insert({"username": name, "email": email}, function (err, doc) {
+		if (err) {
+			res.send("Database write error...");
+		} else {
+			var redirectUrl = "userdetails/" + doc._id;
+			res.location(redirectUrl);
+			res.redirect(redirectUrl);
+		}
+	});
+};
+
+exports.deleteUserPost = function(req, res, next) {
 
 	var db = req.db;
 	var collection = db.get('usercollection');
 
-	collection.insert( {
-		"username": name,
-		"email": email
-	}, function (err, doc) {
-		if (err) {
-			res.send("Database write error...");
-		} else {
-			res.location("userlist");
-			res.redirect("userlist");
+	collection.remove({"_id": req.params.id}, function(err, removed){
+		if(!err) {
+			var redirectUrl = "/userlist";
+			res.location(redirectUrl);
+			res.redirect(redirectUrl);
 		}
-	});
-}); 
-
-
-module.exports = router;
+    });	
+};

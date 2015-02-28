@@ -5,11 +5,12 @@ block content
 
 	h3.
 		User List
-	ul
-		each user, i in userlist
-			li
-				button Delete 
-				button Edit
-				&nbsp;
-				a(href="/userdetail")= user.username
 
+	table
+		each user in userlist
+			tr
+				form(name="deleteuser" + user._id, method="post", action="/deleteuser/" + user._id)
+					td
+						a(href='/userdetails/' + user._id)= user.username
+					td 
+						input(type="submit", data-user-id= user._id value="Delete")

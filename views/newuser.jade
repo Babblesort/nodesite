@@ -3,7 +3,9 @@ extends layout
 block content
 	a(href="/userlist") User List
 
-	h3= title
+	h3.
+		Create New User
+	P
 	form#formAddUser(name="adduser", method="post", action="/newuser")
 		input#inputUserName(type="text", placeholder="username", name="username")
 		input#inputUserEmail(type="text", placeholder="email", name="useremail")

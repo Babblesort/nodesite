@@ -2,10 +2,18 @@ extends layout
 
 block content
 	a(href="/userlist") User List
-	&nbsp;
+	p
 	a(href="/newuser") Add New User
 
 	h3.
 		User Detail
-	p
-		Put some details here
+
+	table
+		tr
+			td
+				b Name
+			td #{user.username}
+		tr
+			td 
+				b Email
+			td #{user.email}
