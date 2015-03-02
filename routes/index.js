@@ -1,10 +1,10 @@
 var mongoSvc = require('../services/mongoService');
 
-exports.index = function(req, res, next) {
+var index = function(req, res, next) {
 	res.render('index');
-};
+}
 
-exports.userList = function(req, res, next) {
+var userList = function(req, res, next) {
 
 	mongoSvc.getUsers(function(err, userDocs) {
 		if(err) {
@@ -15,9 +15,9 @@ exports.userList = function(req, res, next) {
 		}
 	})
 
-};
+}
 
-exports.userDetails = function(req, res, next) {
+var userDetails = function(req, res, next) {
 
 	mongoSvc.getUserDetail(req.params.id, function(err, userDoc) {
 		if(err) {
@@ -28,13 +28,13 @@ exports.userDetails = function(req, res, next) {
 		}
 	})
 
-};
+}
 
-exports.newUser = function(req, res, next) {
+var newUser = function(req, res, next) {
 	res.render('newuser');
-};
+}
 
-exports.newUserPost = function(req, res, next) {
+var newUserPost = function(req, res, next) {
 	var name = req.body.username;
 	var email = req.body.useremail;
 
@@ -47,9 +47,9 @@ exports.newUserPost = function(req, res, next) {
 			res.redirect(redirectUrl);
 		}
 	})
-};
+}
 
-exports.deleteUserPost = function(req, res, next) {
+var deleteUserPost = function(req, res, next) {
 
 	mongoSvc.deleteUser(req.params.id, function(err) {
 		if(err) {
@@ -62,4 +62,13 @@ exports.deleteUserPost = function(req, res, next) {
 		}
 	})
 
+}
+
+module.exports = {
+	index: index,
+	userList: userList,
+	userDetails: userDetails,
+	newUser: newUser,
+	newUserPost: newUserPost,
+	deleteUserPost: deleteUserPost
 };

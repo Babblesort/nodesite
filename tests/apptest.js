@@ -3,7 +3,7 @@ var expect = require('expect.js');
 
 var app = require('../app.js');
 
-describe('GET site root works', function() {
+describe('GET index works', function() {
 
 	it('Retrieves HTML for site root', function(done) {
 		request(app)

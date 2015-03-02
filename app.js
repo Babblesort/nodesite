@@ -4,13 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-// var mongo = require('mongodb');
-// var monk = require('monk');
-// var mongoConfig = require('./config/mongo');
-
-// var db = monk(mongoConfig.url);
-
 var routes = require('./routes');
 
 var app = express();
@@ -34,7 +27,6 @@ app.get('/newuser', routes.newUser);
 app.post('/newuser', routes.newUserPost);
 app.post('/deleteuser/:id', routes.deleteUserPost);
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -42,10 +34,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// error handlers
-
 // development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -57,7 +46,6 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
