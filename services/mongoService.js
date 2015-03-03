@@ -1,6 +1,6 @@
 var mongo = require('mongodb');
 var monk = require('monk');
-var mongoConfig = require('../config/mongo');
+var mongoConfig = require('../config/mongoUrl');
 
 var db = monk(mongoConfig.url);
 var collection = db.get('usercollection');
